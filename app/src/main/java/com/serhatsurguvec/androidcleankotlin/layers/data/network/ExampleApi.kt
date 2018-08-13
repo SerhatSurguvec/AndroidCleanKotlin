@@ -1,4 +1,4 @@
-package com.serhatsurguvec.androidcleankotlin.features.example
+package com.serhatsurguvec.androidcleankotlin.layers.data.network
 
 import retrofit2.Call
 import retrofit2.http.POST

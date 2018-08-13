@@ -1,4 +1,4 @@
-package com.serhatsurguvec.androidcleankotlin.features.example
+package com.serhatsurguvec.androidcleankotlin.layers.presentation.example
 
 import android.os.Bundle
 import android.view.View
@@ -8,6 +8,7 @@ import com.serhatsurguvec.androidcleankotlin.core.extension.failure
 import com.serhatsurguvec.androidcleankotlin.core.extension.observe
 import com.serhatsurguvec.androidcleankotlin.core.extension.viewModel
 import com.serhatsurguvec.androidcleankotlin.core.platform.BaseFragment
+import com.serhatsurguvec.androidcleankotlin.layers.domain.model.Example
 import timber.log.Timber
 
 class ExampleFragment : BaseFragment() {

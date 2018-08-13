@@ -2,7 +2,7 @@ package com.serhatsurguvec.androidcleankotlin.core.di.viewmodel
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.serhatsurguvec.androidcleankotlin.features.example.ExampleViewModel
+import com.serhatsurguvec.androidcleankotlin.layers.presentation.example.ExampleViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

@@ -21,6 +21,12 @@ android {
         testInstrumentationRunner config["test_runner"]
     }
 
+    kapt {
+        arguments {
+            arg("room.schemaLocation", "$projectDir/schemas".toString())
+        }
+    }
+
     packagingOptions {
         exclude 'LICENSE.txt'
         exclude 'META-INF/DEPENDENCIES'
@@ -61,6 +67,7 @@ dependencies {
     kapt applicationDependencies.archComponentsCompiler
     kapt applicationDependencies.daggerCompiler
     kapt applicationDependencies.daggerAndroidCompiler
+    kapt applicationDependencies.roomCompiler
     compileOnly applicationDependencies.javaxAnnotation
     compileOnly applicationDependencies.javaxInject
 
@@ -84,6 +91,7 @@ dependencies {
     implementation applicationDependencies.okhttpLoggingInterceptor
     implementation applicationDependencies.retrofitMockResponse
     implementation applicationDependencies.timber
+    implementation applicationDependencies.roomRuntime
 
     //Unit/Integration tests dependencies
     testImplementation unitTestDependencies.kotlin
