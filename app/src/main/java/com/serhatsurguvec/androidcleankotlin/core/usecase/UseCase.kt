@@ -5,6 +5,7 @@ import com.serhatsurguvec.androidcleankotlin.core.functional.Either
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
 
 /**
@@ -21,7 +22,10 @@ abstract class UseCase<out Type, in Params> where Type : Any {
 
     operator fun invoke(params: Params, onResult: (Either<Failure, Type>) -> Unit = {}) {
         val job = async(CommonPool) { run(params) }
-        launch(UI) { onResult(job.await()) }
+        launch(UI) {
+            delay(2000)
+            onResult(job.await())
+        }
     }
 
     class None

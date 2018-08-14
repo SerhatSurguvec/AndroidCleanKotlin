@@ -25,14 +25,14 @@
     </style>
 
     <style name="BaseToolbarTheme">
-        <item name="android:textColorPrimary">@color/colorTextSecondary</item>
-        <item name="android:textColorSecondary">@color/colorTextPrimary</item>
+        <item name="android:textColorPrimary">@color/colorTextPrimaryToolbar</item>
+        <item name="android:textColorSecondary">@color/colorTextSecondaryToolbar</item>
     </style>
 
     <style name="CustomTitleTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textSize">22sp</item>
-        <item name="android:textColor">@color/colorTextSecondary</item>
+        <item name="android:textColor">@color/colorTextPrimaryToolbar</item>
         <item name="android:textStyle">bold</item>
     </style>
 
