@@ -23,6 +23,7 @@ ext {
     okhttp_logging_interceptor_version = '3.8.1'
     retrofit_mock_response = '1.0.0'
     timber_version = '4.7.1'
+    room_version = "1.1.1"
 
     //Unit Testing
     robolectric_version = '3.8'
@@ -61,7 +62,9 @@ ext {
             retrofitCoroutines      : "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$retrofit_coroutines_version",
             okhttpLoggingInterceptor: "com.squareup.okhttp3:logging-interceptor:$okhttp_logging_interceptor_version",
             retrofitMockResponse    : "com.github.tientun:retrofit-mock-response:$retrofit_mock_response",
-            timber                  : "com.jakewharton.timber:timber:$timber_version"
+            timber                  : "com.jakewharton.timber:timber:$timber_version",
+            roomRuntime             : "android.arch.persistence.room:runtime:$room_version",
+            roomCompiler            : "android.arch.persistence.room:compiler:$room_version"
     ]
 
     unitTesting = [

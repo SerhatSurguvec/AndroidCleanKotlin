@@ -1,73 +1,38 @@
 package com.serhatsurguvec.androidcleankotlin.core.di
 
+import android.arch.persistence.room.Room
 import android.content.Context
-import com.serhatsurguvec.androidcleankotlin.core.platform.NetworkHandler
-import com.serhatsurguvec.androidcleankotlin.features.example.ExampleApi
-import com.serhatsurguvec.androidcleankotlin.features.example.ExampleRepository
-import com.tientun.mockresponse.FakeInterceptor
+import com.serhatsurguvec.androidcleankotlin.layers.data.db.ExampleDatabase
 import dagger.Module
 import dagger.Provides
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
 
-@Module
+/*@Module
 class AppModule {
 
     @Singleton
     @Provides
-    fun providesOkHttpClient(context: Context) = OkHttpClient.Builder()
-            .addInterceptor(FakeInterceptor(context))
-            .build()
+    fun providesExampleRepository(
+            networkRepository: ExampleRepository.Network,
+            databaseRepository: ExampleRepository.Database): ExampleRepository = ExampleRepository.ExampleRepositoryImpl(networkRepository, databaseRepository)
 
     @Singleton
     @Provides
-    fun providesExampleApi(retrofit: Retrofit): ExampleApi {
-        return retrofit.create(ExampleApi::class.java)
-    }
+    fun providesRoomDatabase(context: Context) = Room.databaseBuilder(context, ExampleDatabase::class.java, "example-db").build()
 
     @Singleton
     @Provides
-    fun providesRetrofit(client: OkHttpClient) = Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("http://mock.api")
-            .client(client)
-            .build()
+    fun providesExampleDao(exampleDatabase: ExampleDatabase) = exampleDatabase.exampleDao()
+}*/
 
-    @Singleton
-    @Provides
-    fun providesExampleRepository(networkHandler: NetworkHandler,
-                                  exampleApi: ExampleApi): ExampleRepository = ExampleRepository.Network(networkHandler, exampleApi)
-}
-
-/*
 @Module
 object AppModule {
 
     @JvmStatic
     @Provides
-    fun providesOkHttpClient(context: Context) = OkHttpClient.Builder()
-            .addInterceptor(FakeInterceptor(context))
-            .build()
+    fun providesRoomDatabase(context: Context) = Room.databaseBuilder(context, ExampleDatabase::class.java, "example-db").build()
 
     @JvmStatic
     @Provides
-    fun providesExampleApi(retrofit: Retrofit): ExampleApi {
-        return retrofit.create(ExampleApi::class.java)
-    }
-
-    @JvmStatic
-    @Provides
-    fun providesRetrofit(client: OkHttpClient) = Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("http://mock.api")
-            .client(client)
-            .build()
-
-    @JvmStatic
-    @Provides
-    fun providesExampleRepository(networkHandler: NetworkHandler,
-                                  exampleApi: ExampleApi): ExampleRepository = ExampleRepository.Network(networkHandler, exampleApi)
-}*/
+    fun providesExampleDao(exampleDatabase: ExampleDatabase) = exampleDatabase.exampleDao()
+}

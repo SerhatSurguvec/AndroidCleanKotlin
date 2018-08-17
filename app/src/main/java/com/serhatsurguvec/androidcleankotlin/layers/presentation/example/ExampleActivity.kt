@@ -1,4 +1,4 @@
-package com.serhatsurguvec.androidcleankotlin.features.example
+package com.serhatsurguvec.androidcleankotlin.layers.presentation.example
 
 import com.serhatsurguvec.androidcleankotlin.core.platform.BaseActivity
 import com.serhatsurguvec.androidcleankotlin.core.platform.BaseFragment

@@ -1,7 +1,7 @@
 package com.serhatsurguvec.androidcleankotlin.core.di
 
-import com.serhatsurguvec.androidcleankotlin.features.example.ExampleActivity
-import com.serhatsurguvec.androidcleankotlin.features.example.ExampleModule
+import com.serhatsurguvec.androidcleankotlin.layers.presentation.example.ExampleActivity
+import com.serhatsurguvec.androidcleankotlin.layers.presentation.example.ExampleModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
