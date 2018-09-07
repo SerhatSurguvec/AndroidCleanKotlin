@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.toolbar.*
  * Base Activity class with helper methods for handling fragment transactions and back button
  * events.
  *
- * @see AppCompatActivity
+ * @see DaggerAppCompatActivity
  */
 abstract class BaseActivity : DaggerAppCompatActivity() {
 
@@ -24,7 +24,7 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        (fragmentManager.findFragmentById(
+        (supportFragmentManager.findFragmentById(
                 id.fragmentContainer) as BaseFragment).onBackPressed()
         super.onBackPressed()
     }
