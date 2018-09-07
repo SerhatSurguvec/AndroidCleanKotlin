@@ -4,9 +4,12 @@ package com.serhatsurguvec.androidcleankotlin.core.platform
 
 import android.os.Parcel
 import android.os.Parcelable
+import org.threeten.bp.Instant
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.ZoneId
+import org.threeten.bp.ZonedDateTime
 import java.math.BigDecimal
 import java.math.BigInteger
-import java.util.*
 
 //Interesting article about Parcelable and Kotlin:
 //https://medium.com/@BladeCoder/reducing-parcelable-boilerplate-code-using-kotlin-741c3124a49a
@@ -53,10 +56,21 @@ inline fun <T> Parcel.writeNullable(value: T?, writer: (T) -> Unit) {
     }
 }
 
-//TODO change it with JAVA 8 LocalDateTime
-fun Parcel.readDate() = readNullable { Date(readLong()) }
+fun Parcel.readDate() = readNullable {
+    LocalDateTime.ofInstant(
+        Instant.ofEpochMilli(readLong()),
+        ZoneId.systemDefault()
+    )
+}
 
-fun Parcel.writeDate(value: Date?) = writeNullable(value) { writeLong(it.time) }
+fun Parcel.writeDate(value: LocalDateTime?) = writeNullable(value) {
+    writeLong(
+        ZonedDateTime.of(
+            it,
+            ZoneId.systemDefault()
+        ).toInstant().toEpochMilli()
+    )
+}
 
 fun Parcel.readBigInteger() = readNullable { BigInteger(createByteArray()) }
 

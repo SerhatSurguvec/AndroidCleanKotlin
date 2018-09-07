@@ -92,6 +92,7 @@ dependencies {
     implementation "com.github.tientun:retrofit-mock-response:$retrofit_mock_response"
     implementation "com.jakewharton.timber:timber:$timber_version"
     implementation "android.arch.persistence.room:runtime:$room_version"
+    implementation "com.jakewharton.threetenabp:threetenabp:$three_ten_abp"
 
     //Unit/Integration tests dependencies
     testImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
