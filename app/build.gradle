@@ -7,18 +7,16 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    def config = rootProject.extensions.getByName("ext")
-
-    compileSdkVersion config["compile_sdk"]
-    buildToolsVersion config["build_tools"]
+    compileSdkVersion rootProject.ext.compile_sdk
+    buildToolsVersion rootProject.ext.build_tools
 
     defaultConfig {
-        applicationId config["application_id"]
-        minSdkVersion config["min_sdk"]
-        targetSdkVersion config["target_sdk"]
-        versionCode config["version_code"]
-        versionName config["version_name"]
-        testInstrumentationRunner config["test_runner"]
+        applicationId rootProject.ext.application_id
+        minSdkVersion rootProject.ext.min_sdk
+        targetSdkVersion rootProject.ext.target_sdk
+        versionCode rootProject.ext.version_code
+        versionName rootProject.ext.version_name
+        testInstrumentationRunner rootProject.ext.test_runner
     }
 
     kapt {
@@ -55,63 +53,69 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        main.java.srcDirs += [file("$buildDir/generated/source/kapt/main")]
+        test.java.srcDirs += 'src/test/kotlin'
+        androidTest.java.srcDirs += 'src/androidTest/kotlin'
+    }
 }
 
 dependencies {
-    def applicationDependencies = rootProject.ext.mainApplication
-    def unitTestDependencies = rootProject.ext.unitTesting
-    def acceptanceTestDependencies = rootProject.ext.acceptanceTesting
-    def developmentDependencies = rootProject.ext.development
-
     //Compile time dependencies
-    kapt applicationDependencies.archComponentsCompiler
-    kapt applicationDependencies.daggerCompiler
-    kapt applicationDependencies.daggerAndroidCompiler
-    kapt applicationDependencies.roomCompiler
-    compileOnly applicationDependencies.javaxAnnotation
-    compileOnly applicationDependencies.javaxInject
+    kapt "android.arch.lifecycle:compiler:$archComponents_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    kapt "com.google.dagger:dagger-android-processor:$dagger_version"
+    kapt "android.arch.persistence.room:compiler:$room_version"
+    compileOnly "javax.annotation:jsr250-api:$javaxAnnotations_version"
+    compileOnly "javax.inject:javax.inject:$javaxInject_version"
 
     //Application dependencies
-    implementation applicationDependencies.kotlin
-    implementation applicationDependencies.kotlinCoroutines
-    implementation applicationDependencies.kotlinCoroutinesAndroid
-    implementation applicationDependencies.appCompat
-    implementation applicationDependencies.constraintLayout
-    implementation applicationDependencies.archComponents
-    implementation applicationDependencies.cardView
-    implementation applicationDependencies.recyclerView
-    implementation applicationDependencies.design
-    implementation applicationDependencies.androidAnnotations
-    implementation applicationDependencies.glide
-    implementation applicationDependencies.dagger
-    implementation applicationDependencies.daggerAndroidSupport
-    implementation applicationDependencies.daggerAndroid
-    implementation applicationDependencies.retrofit
-    implementation applicationDependencies.retrofitCoroutines
-    implementation applicationDependencies.okhttpLoggingInterceptor
-    implementation applicationDependencies.retrofitMockResponse
-    implementation applicationDependencies.timber
-    implementation applicationDependencies.roomRuntime
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_version"
+    implementation "com.android.support:appcompat-v7:$appCompat_version"
+    implementation "com.android.support.constraint:constraint-layout:$constraintLayout_version"
+    implementation "android.arch.lifecycle:extensions:$archComponents_version"
+    implementation "com.android.support:cardview-v7:$appCompat_version"
+    implementation "com.android.support:recyclerview-v7:$appCompat_version"
+    implementation "com.android.support:design:$appCompat_version"
+    implementation "com.android.support:support-annotations:$appCompat_version"
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    implementation "com.google.dagger:dagger:$dagger_version"
+    implementation "com.google.dagger:dagger-android-support:$dagger_version"
+    implementation "com.google.dagger:dagger-android:$dagger_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$retrofit_coroutines_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_logging_interceptor_version"
+    implementation "com.github.tientun:retrofit-mock-response:$retrofit_mock_response"
+    implementation "com.jakewharton.timber:timber:$timber_version"
+    implementation "android.arch.persistence.room:runtime:$room_version"
 
     //Unit/Integration tests dependencies
-    testImplementation unitTestDependencies.kotlin
-    testImplementation unitTestDependencies.kotlinTest
-    testImplementation unitTestDependencies.robolectric
-    testImplementation unitTestDependencies.junit
-    testImplementation unitTestDependencies.mockito
-    testImplementation unitTestDependencies.kluent
+    testImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+    testImplementation "org.robolectric:robolectric:$robolectric_version"
+    testImplementation "junit:junit:$junit_version"
+    testImplementation "com.nhaarman:mockito-kotlin:$mockito_version"
+    testImplementation "org.amshove.kluent:kluent:$kluent_version"
 
     //Acceptance tests dependencies
-    androidTestImplementation acceptanceTestDependencies.testRunner
-    androidTestImplementation acceptanceTestDependencies.testRules
-    androidTestImplementation acceptanceTestDependencies.espressoCore
-    androidTestImplementation acceptanceTestDependencies.espressoIntents
-    androidTestImplementation acceptanceTestDependencies.androidAnnotations
+    androidTestImplementation "com.android.support.test:runner:$runner_version"
+    androidTestImplementation "com.android.support.test:rules:$runner_version"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_version"
+    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$espresso_version"
+    androidTestImplementation "com.android.support:support-annotations:$appCompat_version"
 
     //Development dependencies
-    debugImplementation developmentDependencies.leakCanary
-    releaseImplementation developmentDependencies.leakCanaryNoop
-    testImplementation developmentDependencies.leakCanaryNoop
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
+    testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
+}
+
+kapt {
+    generateStubs = true
 }
 
 kotlin {
